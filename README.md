@@ -1,0 +1,1 @@
+# avada_training_summer_2025
