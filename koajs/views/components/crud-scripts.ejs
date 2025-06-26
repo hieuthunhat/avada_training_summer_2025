@@ -6,13 +6,19 @@
         
         const formData = new FormData(e.target);
         const productData = {
-            name: formData.get('name'),
+            name: formData.get('name').trim(),
             price: parseFloat(formData.get('price')),
-            description: formData.get('description') || '',
             product: formData.get('product'),
+            description: formData.get('description') ? formData.get('description').trim() : '',
             color: formData.get('color') || '',
             image: formData.get('image') || ''
         };
+
+        // Validate required fields on frontend
+        if (!productData.name || !productData.price || !productData.product) {
+            showNotification('Please fill in all required fields (Name, Price, Category)', 'error');
+            return;
+        }
 
         console.log('Sending data:', productData); // Debug log
 
@@ -34,7 +40,8 @@
                 showNotification('Product added successfully!', 'success');
                 setTimeout(() => location.reload(), 1000);
             } else {
-                const errorMsg = result.errors ? result.errors.join(', ') : 'Error adding product';
+                const errorMsg = result.message || (result.errors ? result.errors.join(', ') : 'Error adding product');
+                console.error('Server error:', result); // Debug log
                 showNotification(errorMsg, 'error');
             }
         } catch (error) {
@@ -76,12 +83,18 @@
         const productData = {
             name: formData.get('name').trim(),
             price: parseFloat(formData.get('price')),
-            description: formData.get('description') ? formData.get('description').trim() : '',
             product: formData.get('product'),
+            description: formData.get('description') ? formData.get('description').trim() : '',
             color: formData.get('color') || '',
             image: formData.get('image') || ''
         };
         const id = formData.get('id');
+
+        // Validate required fields on frontend
+        if (!productData.name || !productData.price || !productData.product) {
+            showNotification('Please fill in all required fields (Name, Price, Category)', 'error');
+            return;
+        }
 
         console.log('Updating product:', id, productData); // Debug log
 
@@ -102,7 +115,8 @@
                 showNotification('Product updated successfully!', 'success');
                 setTimeout(() => location.reload(), 1000);
             } else {
-                const errorMsg = result.errors ? result.errors.join(', ') : 'Error updating product';
+                const errorMsg = result.message || (result.errors ? result.errors.join(', ') : 'Error updating product');
+                console.error('Server error:', result); // Debug log
                 showNotification(errorMsg, 'error');
             }
         } catch (error) {
