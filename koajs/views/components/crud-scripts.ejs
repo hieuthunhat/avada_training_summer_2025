@@ -6,10 +6,17 @@
         
         const formData = new FormData(e.target);
         const productData = {
+            id: parseInt(formData.get('id')),
             name: formData.get('name'),
             price: parseFloat(formData.get('price')),
-            description: formData.get('description')
+            description: formData.get('description') || '',
+            product: formData.get('product'),
+            color: formData.get('color') || '',
+            createdAt: formData.get('createdAt'),
+            image: formData.get('image') || ''
         };
+
+        console.log('Sending data:', productData); // Debug log
 
         try {
             const response = await fetch('/api/products', {
@@ -20,15 +27,20 @@
                 body: JSON.stringify(productData)
             });
 
+            const result = await response.json();
+            console.log('Response:', result); // Debug log
+
             if (response.ok) {
                 // Close modal and show success message
                 bootstrap.Modal.getInstance(document.getElementById('addProductModal')).hide();
                 showNotification('Product added successfully!', 'success');
                 setTimeout(() => location.reload(), 1000);
             } else {
-                showNotification('Error adding product', 'error');
+                const errorMsg = result.errors ? result.errors.join(', ') : 'Error adding product';
+                showNotification(errorMsg, 'error');
             }
         } catch (error) {
+            console.error('Error:', error); // Debug log
             showNotification('Error: ' + error.message, 'error');
         }
     });
@@ -39,13 +51,22 @@
             const response = await fetch(`/api/products/${id}`);
             const product = await response.json();
             
-            document.getElementById('editProductId').value = product.id;
-            document.getElementById('editProductName').value = product.name;
-            document.getElementById('editProductPrice').value = product.price;
-            document.getElementById('editProductDescription').value = product.description || '';
+            console.log('Product data:', product); // Debug log
+            
+            // Populate form fields
+            document.getElementById('editProductId').value = product.data.id;
+            document.getElementById('editProductIdDisplay').value = product.data.id;
+            document.getElementById('editProductName').value = product.data.name;
+            document.getElementById('editProductPrice').value = product.data.price;
+            document.getElementById('editProductDescription').value = product.data.description || '';
+            document.getElementById('editProductCategory').value = product.data.product || '';
+            document.getElementById('editProductColor').value = product.data.color || '';
+            document.getElementById('editProductDate').value = product.data.createdAt || '';
+            document.getElementById('editProductImage').value = product.data.image || '';
             
             new bootstrap.Modal(document.getElementById('editProductModal')).show();
         } catch (error) {
+            console.error('Error fetching product:', error); // Debug log
             showNotification('Error fetching product: ' + error.message, 'error');
         }
     }
@@ -56,11 +77,18 @@
         
         const formData = new FormData(e.target);
         const productData = {
+            id: parseInt(formData.get('id')),
             name: formData.get('name'),
             price: parseFloat(formData.get('price')),
-            description: formData.get('description')
+            description: formData.get('description') || '',
+            product: formData.get('product'),
+            color: formData.get('color') || '',
+            createdAt: formData.get('createdAt'),
+            image: formData.get('image') || ''
         };
         const id = formData.get('id');
+
+        console.log('Updating product:', id, productData); // Debug log
 
         try {
             const response = await fetch(`/api/products/${id}`, {
@@ -71,14 +99,19 @@
                 body: JSON.stringify(productData)
             });
 
+            const result = await response.json();
+            console.log('Update response:', result); // Debug log
+
             if (response.ok) {
                 bootstrap.Modal.getInstance(document.getElementById('editProductModal')).hide();
                 showNotification('Product updated successfully!', 'success');
                 setTimeout(() => location.reload(), 1000);
             } else {
-                showNotification('Error updating product', 'error');
+                const errorMsg = result.errors ? result.errors.join(', ') : 'Error updating product';
+                showNotification(errorMsg, 'error');
             }
         } catch (error) {
+            console.error('Error updating:', error); // Debug log
             showNotification('Error: ' + error.message, 'error');
         }
     });

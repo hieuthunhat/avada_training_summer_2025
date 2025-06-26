@@ -1,6 +1,6 @@
 <!-- Add Product Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title">
@@ -10,19 +10,80 @@
             </div>
             <form id="addProductForm">
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="productName" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="productName" name="name" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="productId" class="form-label">Product ID</label>
+                                <input type="number" class="form-control" id="productId" name="id" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="productName" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="productName" name="name" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="productPrice" class="form-label">Price</label>
-                        <div class="input-group">
-                            <span class="input-group-text">$</span>
-                            <input type="number" class="form-control" id="productPrice" name="price" step="0.01" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="productPrice" class="form-label">Price</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="productPrice" name="price" step="0.01" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="productCategory" class="form-label">Category</label>
+                                <select class="form-select" id="productCategory" name="product" required>
+                                    <option value="">Select category...</option>
+                                    <option value="Food & Beverages">Food & Beverages</option>
+                                    <option value="Office Supplies">Office Supplies</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Clothing">Clothing</option>
+                                    <option value="Home & Garden">Home & Garden</option>
+                                    <option value="Sports & Outdoors">Sports & Outdoors</option>
+                                    <option value="Health & Beauty">Health & Beauty</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="productColor" class="form-label">Color</label>
+                                <select class="form-select" id="productColor" name="color">
+                                    <option value="">Select color...</option>
+                                    <option value="Red">Red</option>
+                                    <option value="Blue">Blue</option>
+                                    <option value="Green">Green</option>
+                                    <option value="Gold">Gold</option>
+                                    <option value="Silver">Silver</option>
+                                    <option value="Black">Black</option>
+                                    <option value="White">White</option>
+                                    <option value="Yellow">Yellow</option>
+                                    <option value="Purple">Purple</option>
+                                    <option value="Orange">Orange</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="productDate" class="form-label">Created Date</label>
+                                <input type="url" class="form-control" id="productDate" name="createdAt" 
+                                       placeholder="https://example.com/date" required>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="productDescription" class="form-label">Description (Optional)</label>
+                        <label for="productImage" class="form-label">Image URL</label>
+                        <input type="url" class="form-control" id="productImage" name="image" 
+                               placeholder="https://example.com/image.jpg">
+                    </div>
+                    <div class="mb-3">
+                        <label for="productDescription" class="form-label">Description</label>
                         <textarea class="form-control" id="productDescription" name="description" rows="3"></textarea>
                     </div>
                 </div>

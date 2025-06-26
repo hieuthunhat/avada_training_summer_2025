@@ -1,6 +1,6 @@
 <!-- Edit Product Modal -->
 <div class="modal fade" id="editProductModal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-warning text-dark">
                 <h5 class="modal-title">
@@ -11,19 +11,80 @@
             <form id="editProductForm">
                 <div class="modal-body">
                     <input type="hidden" id="editProductId" name="id">
-                    <div class="mb-3">
-                        <label for="editProductName" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="editProductName" name="name" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editProductIdDisplay" class="form-label">Product ID</label>
+                                <input type="number" class="form-control" id="editProductIdDisplay" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editProductName" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="editProductName" name="name" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="editProductPrice" class="form-label">Price</label>
-                        <div class="input-group">
-                            <span class="input-group-text">$</span>
-                            <input type="number" class="form-control" id="editProductPrice" name="price" step="0.01" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editProductPrice" class="form-label">Price</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="editProductPrice" name="price" step="0.01" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editProductCategory" class="form-label">Category</label>
+                                <select class="form-select" id="editProductCategory" name="product" required>
+                                    <option value="">Select category...</option>
+                                    <option value="Food & Beverages">Food & Beverages</option>
+                                    <option value="Office Supplies">Office Supplies</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Clothing">Clothing</option>
+                                    <option value="Home & Garden">Home & Garden</option>
+                                    <option value="Sports & Outdoors">Sports & Outdoors</option>
+                                    <option value="Health & Beauty">Health & Beauty</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editProductColor" class="form-label">Color</label>
+                                <select class="form-select" id="editProductColor" name="color">
+                                    <option value="">Select color...</option>
+                                    <option value="Red">Red</option>
+                                    <option value="Blue">Blue</option>
+                                    <option value="Green">Green</option>
+                                    <option value="Gold">Gold</option>
+                                    <option value="Silver">Silver</option>
+                                    <option value="Black">Black</option>
+                                    <option value="White">White</option>
+                                    <option value="Yellow">Yellow</option>
+                                    <option value="Purple">Purple</option>
+                                    <option value="Orange">Orange</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editProductDate" class="form-label">Created Date</label>
+                                <input type="url" class="form-control" id="editProductDate" name="createdAt" 
+                                       placeholder="https://example.com/date" required>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="editProductDescription" class="form-label">Description (Optional)</label>
+                        <label for="editProductImage" class="form-label">Image URL</label>
+                        <input type="url" class="form-control" id="editProductImage" name="image" 
+                               placeholder="https://example.com/image.jpg">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editProductDescription" class="form-label">Description</label>
                         <textarea class="form-control" id="editProductDescription" name="description" rows="3"></textarea>
                     </div>
                 </div>
