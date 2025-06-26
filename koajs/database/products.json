@@ -1,13 +1,13 @@
 [
   {
     "id": 1001,
-    "name": "dsasd",
-    "price": 123,
-    "product": "dasd",
-    "description": "",
-    "color": "",
+    "name": "Nam Vỹ",
+    "price": 12,
+    "product": "Food & Beverages",
+    "description": "a sleepy person",
+    "color": "Yellow",
     "image": "",
-    "createdAt": "2025-06-26T14:14:39.355Z"
+    "createdAt": "2025-06-26T14:23:40.968Z"
   },
   {
     "id": 1,

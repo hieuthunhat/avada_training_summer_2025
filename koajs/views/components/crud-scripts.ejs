@@ -1,6 +1,5 @@
 <!-- CRUD JavaScript Functions -->
 <script>
-    // Add Product Form Handler
     document.getElementById('addProductForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -14,13 +13,12 @@
             image: formData.get('image') || ''
         };
 
-        // Validate required fields on frontend
         if (!productData.name || !productData.price || !productData.product) {
             showNotification('Please fill in all required fields (Name, Price, Category)', 'error');
             return;
         }
 
-        console.log('Sending data:', productData); // Debug log
+        console.log('Sending data:', productData);
 
         try {
             const response = await fetch('/api/products', {
@@ -32,33 +30,30 @@
             });
 
             const result = await response.json();
-            console.log('Response:', result); // Debug log
+            console.log('Response:', result);
 
             if (response.ok) {
-                // Close modal and show success message
                 bootstrap.Modal.getInstance(document.getElementById('addProductModal')).hide();
                 showNotification('Product added successfully!', 'success');
                 setTimeout(() => location.reload(), 1000);
             } else {
                 const errorMsg = result.message || (result.errors ? result.errors.join(', ') : 'Error adding product');
-                console.error('Server error:', result); // Debug log
+                console.error('Server error:', result);
                 showNotification(errorMsg, 'error');
             }
         } catch (error) {
-            console.error('Error:', error); // Debug log
+            console.error('Error:', error);
             showNotification('Error: ' + error.message, 'error');
         }
     });
 
-    // Edit Product Function
     async function editProduct(id) {
         try {
             const response = await fetch(`/api/products/${id}`);
             const product = await response.json();
             
-            console.log('Product data:', product); // Debug log
+            console.log('Product data:', product); 
             
-            // Populate form fields
             document.getElementById('editProductId').value = product.data.id;
             document.getElementById('editProductIdDisplay').textContent = product.data.id;
             document.getElementById('editProductName').value = product.data.name;
@@ -70,12 +65,11 @@
             
             new bootstrap.Modal(document.getElementById('editProductModal')).show();
         } catch (error) {
-            console.error('Error fetching product:', error); // Debug log
+            console.error('Error fetching product:', error);
             showNotification('Error fetching product: ' + error.message, 'error');
         }
     }
 
-    // Edit Product Form Handler
     document.getElementById('editProductForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -90,13 +84,13 @@
         };
         const id = formData.get('id');
 
-        // Validate required fields on frontend
+
         if (!productData.name || !productData.price || !productData.product) {
             showNotification('Please fill in all required fields (Name, Price, Category)', 'error');
             return;
         }
 
-        console.log('Updating product:', id, productData); // Debug log
+        console.log('Updating product:', id, productData);
 
         try {
             const response = await fetch(`/api/products/${id}`, {
@@ -108,7 +102,7 @@
             });
 
             const result = await response.json();
-            console.log('Update response:', result); // Debug log
+            console.log('Update response:', result);
 
             if (response.ok) {
                 bootstrap.Modal.getInstance(document.getElementById('editProductModal')).hide();
@@ -116,11 +110,11 @@
                 setTimeout(() => location.reload(), 1000);
             } else {
                 const errorMsg = result.message || (result.errors ? result.errors.join(', ') : 'Error updating product');
-                console.error('Server error:', result); // Debug log
+                console.error('Server error:', result);
                 showNotification(errorMsg, 'error');
             }
         } catch (error) {
-            console.error('Error updating:', error); // Debug log
+            console.error('Error updating:', error);
             showNotification('Error: ' + error.message, 'error');
         }
     });
