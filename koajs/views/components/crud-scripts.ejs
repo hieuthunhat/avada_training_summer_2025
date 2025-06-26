@@ -6,13 +6,11 @@
         
         const formData = new FormData(e.target);
         const productData = {
-            id: parseInt(formData.get('id')),
             name: formData.get('name'),
             price: parseFloat(formData.get('price')),
             description: formData.get('description') || '',
             product: formData.get('product'),
             color: formData.get('color') || '',
-            createdAt: formData.get('createdAt'),
             image: formData.get('image') || ''
         };
 
@@ -55,13 +53,12 @@
             
             // Populate form fields
             document.getElementById('editProductId').value = product.data.id;
-            document.getElementById('editProductIdDisplay').value = product.data.id;
+            document.getElementById('editProductIdDisplay').textContent = product.data.id;
             document.getElementById('editProductName').value = product.data.name;
             document.getElementById('editProductPrice').value = product.data.price;
             document.getElementById('editProductDescription').value = product.data.description || '';
             document.getElementById('editProductCategory').value = product.data.product || '';
             document.getElementById('editProductColor').value = product.data.color || '';
-            document.getElementById('editProductDate').value = product.data.createdAt || '';
             document.getElementById('editProductImage').value = product.data.image || '';
             
             new bootstrap.Modal(document.getElementById('editProductModal')).show();
@@ -77,13 +74,11 @@
         
         const formData = new FormData(e.target);
         const productData = {
-            id: parseInt(formData.get('id')),
-            name: formData.get('name'),
+            name: formData.get('name').trim(),
             price: parseFloat(formData.get('price')),
-            description: formData.get('description') || '',
+            description: formData.get('description') ? formData.get('description').trim() : '',
             product: formData.get('product'),
             color: formData.get('color') || '',
-            createdAt: formData.get('createdAt'),
             image: formData.get('image') || ''
         };
         const id = formData.get('id');

@@ -11,33 +11,30 @@
             <form id="editProductForm">
                 <div class="modal-body">
                     <input type="hidden" id="editProductId" name="id">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="editProductIdDisplay" class="form-label">Product ID</label>
-                                <input type="number" class="form-control" id="editProductIdDisplay" disabled>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="editProductName" class="form-label">Product Name</label>
-                                <input type="text" class="form-control" id="editProductName" name="name" required>
-                            </div>
-                        </div>
+                    <div class="alert alert-info">
+                        <small><i class="bi bi-info-circle"></i> Product ID: <span id="editProductIdDisplay"></span></small>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="editProductPrice" class="form-label">Price</label>
+                                <label for="editProductName" class="form-label">Product Name *</label>
+                                <input type="text" class="form-control" id="editProductName" name="name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editProductPrice" class="form-label">Price *</label>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
                                     <input type="number" class="form-control" id="editProductPrice" name="price" step="0.01" required>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="editProductCategory" class="form-label">Category</label>
+                                <label for="editProductCategory" class="form-label">Category *</label>
                                 <select class="form-select" id="editProductCategory" name="product" required>
                                     <option value="">Select category...</option>
                                     <option value="Food & Beverages">Food & Beverages</option>
@@ -50,8 +47,6 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="editProductColor" class="form-label">Color</label>
@@ -68,13 +63,6 @@
                                     <option value="Purple">Purple</option>
                                     <option value="Orange">Orange</option>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="editProductDate" class="form-label">Created Date</label>
-                                <input type="url" class="form-control" id="editProductDate" name="createdAt" 
-                                       placeholder="https://example.com/date" required>
                             </div>
                         </div>
                     </div>

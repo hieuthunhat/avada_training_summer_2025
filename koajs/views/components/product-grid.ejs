@@ -31,15 +31,6 @@
             <% for (let product of products) { %>
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card h-100 shadow-sm product-card">
-                        <% if (product.image) { %>
-                            <img src="<%= product.image %>" class="card-img-top" alt="<%= product.name %>" 
-                                 style="height: 200px; object-fit: cover;" 
-                                 onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
-                        <% } else { %>
-                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                                <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
-                            </div>
-                        <% } %>
                         <div class="card-header bg-primary text-white">
                             <h5 class="card-title mb-0">
                                 <i class="bi bi-tag"></i> <%= product.name %>
@@ -67,7 +58,12 @@
                             <% } %>
                             <% if (product.createdAt) { %>
                                 <small class="text-muted">
-                                    <i class="bi bi-calendar"></i> <%= product.createdAt %>
+                                    <i class="bi bi-calendar"></i> 
+                                    <% if (typeof product.createdAt === 'string' && product.createdAt.includes('-')) { %>
+                                        <%= new Date(product.createdAt).toLocaleDateString() %>
+                                    <% } else { %>
+                                        <%= product.createdAt %>
+                                    <% } %>
                                 </small>
                             <% } %>
                         </div>
