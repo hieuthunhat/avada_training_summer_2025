@@ -6,16 +6,14 @@ const router = new Router({
   prefix: '/api'
 });
 
-// API routes
 router.get('/products', productHandlers.getManyProducts);
 router.get('/products/:id', productHandlers.getOneProduct);
 router.post('/products', productInputMiddleware, productHandlers.addProduct);
 router.put('/products/:id', productInputMiddleware, productHandlers.updateProduct);
 router.delete('/products/:id', productHandlers.deleteProduct);
-router.get('/', productHandlers.renderProductsPage);
 
-// Router cho trang chủ (không có prefix)
+// Chỉ phù hợp với server-side-rendering -> không ổn lắm với React sau này
 const homeRouter = new Router();
 homeRouter.get('/', productHandlers.renderProductsPage);
 
-export { router as apiRouter, homeRouter };
+export { router, homeRouter };
