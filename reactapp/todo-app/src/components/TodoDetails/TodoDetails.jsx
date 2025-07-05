@@ -1,11 +1,12 @@
-import { Box, Frame, Page } from "@shopify/polaris";
-import { useParams } from "react-router-dom"
+import { Box, Button, Frame, Page } from "@shopify/polaris";
+import { useNavigate, useParams } from "react-router-dom"
 import { fetchGetOneToDo } from "../../services/fetchAPI";
 import { useEffect, useState } from "react";
 
 const TodoDetails = () => {
     const [toDoData, setToDoData] = useState("");
     const { id } = useParams();
+    const navigate = useNavigate();
     useEffect(() => {
         const getToDoData = async () => {
             try {
@@ -28,6 +29,7 @@ const TodoDetails = () => {
         <Page>
             <Frame>
                 <Box>
+                    <Button onClick={() => navigate(-1)}>Go Back</Button>
                     {toDoData.todo_name}
                     {toDoData.description}
                 </Box>

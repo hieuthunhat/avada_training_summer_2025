@@ -1,10 +1,8 @@
-import { useState } from "react";
-import { Box, Card, Button, Page, Layout, FormLayout } from '@shopify/polaris';
-import '@shopify/polaris/build/esm/styles.css';
-import AddTodoModal from "../AddTodoModal/AddTodoModal";
+import { useCallback, useState } from "react";
+import { Box, Card, Button, Modal, Text, InlineStack, } from '@shopify/polaris';
 import { useTodos } from "../../hooks/useTodos";
-import { PopUpProvider } from "../../context/PopUpContext";
 import TodoList from "../TodoList/TodoList";
+import ToDoForm from "../TodoForm/TodoForm";
 
 
 export const TodoContainer = () => {
@@ -16,45 +14,29 @@ export const TodoContainer = () => {
         isLoading,
         setIsLoading
     });
-    const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
-
     const handleAddTodo = async (todoData) => {
         const result = await addToDo(todoData);
-        if (result) {
-            setIsAddPopupOpen(false);
-        }
-        return result;
 
     };
-    console.log(todos);
-    
 
     return (
 
-        <PopUpProvider>
-            <Card background="bg-surface-secondary">
-                <Box as="div" width="800px">
-                    <Box>
-                        <Button onClick={() => setIsAddPopupOpen(true)} tone="success">
-                            Create
-                        </Button>
-                    </Box>
 
-                    <TodoList
-                        todos={todos}
-                        isLoading={isLoading}
-                        updateToDo={updateToDo}
-                        deleteToDo={deleteToDo}
-                    />
+        <Card background="bg-surface-secondary">
+            <Box as="div" width="800px">
+                <InlineStack>
+                    <Text>Todoes</Text>
+                    <ToDoForm action={handleAddTodo}></ToDoForm>
+                </InlineStack>
 
+                <TodoList
+                    todos={todos}
+                    isLoading={isLoading}
+                    updateToDo={updateToDo}
+                    deleteToDo={deleteToDo}
+                />
 
-                    <AddTodoModal
-                        isOpen={isAddPopupOpen}
-                        onClose={() => setIsAddPopupOpen(false)}
-                        onAddTodo={handleAddTodo}
-                    />
-                </Box>
-            </Card>
-        </PopUpProvider>
+            </Box>
+        </Card>
     )
 }

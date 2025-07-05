@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { fetchAddToDo, fetchDeleteOneToDo, fetchToDoList, fetchUpdateOneToDo } from "../services/fetchAPI";
 
 export const useTodos = ({ todos, setIsLoading, setTodos }) => {
