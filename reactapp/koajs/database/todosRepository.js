@@ -7,24 +7,25 @@ const db = getFirestore(app);
  * Object structure:
  * - id (doc ref in todos collection)
  * - u_id (future)
- * - name
+ * - todo_name
  * - description
- * - isDone
- * - isHidden (privacy)
- * - createdAt
- * - updatedAt
- * - sub_tasks
+ * - isDone             BE
+ * - isHidden (privacy) BE
+ * - createdAt          BE
+ * - updatedAt          BE
+ * - sub_tasks          
  */
 
 export const addOne = async ({ data }) => {
     try {
         const todoRef = await addDoc(collection(db, 'todos'), data);
+        const newDoc = await getDoc(todoRef);
         return {
-            id: todoRef.id,
-            ...data
+            id: newDoc.id,
+            ...newDoc.data()
         }
     } catch (error) {
-        console.error("Error fetching todo:", error);
+        console.error("Error adding todo:", error);
         throw error;
     }
 }

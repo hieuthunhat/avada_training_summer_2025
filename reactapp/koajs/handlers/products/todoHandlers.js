@@ -6,9 +6,7 @@ const addToDo = async (ctx) => {
         const data = ctx.request.body;
         const fullTodo = {
             ...data,
-            isDone: false,
             createdAt: new Date(),
-            sub_tasks: [],
         }
         
         const toDo = await addOne({data: fullTodo});

@@ -17,6 +17,7 @@ const ToDo = ({ data, onToggleDone, onToggleDelete }) => {
     }
 
     return (
+
         <InlineStack
             blockAlign="center"
             align="space-between"

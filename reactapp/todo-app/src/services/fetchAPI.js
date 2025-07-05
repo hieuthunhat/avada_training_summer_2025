@@ -11,7 +11,7 @@ const fetchToDoList = async () => {
   }
 }
 
-const fetchAddToDo = async (data) => {
+const fetchAddToDo = async (data) => { 
   try {
     const response = await axios.post(`${FINAL_API}`, data);
     return response.data;

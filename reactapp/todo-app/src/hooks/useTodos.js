@@ -1,22 +1,31 @@
 import { useState, useEffect } from "react";
 import { fetchAddToDo, fetchDeleteOneToDo, fetchToDoList, fetchUpdateOneToDo } from "../services/fetchAPI";
 
-export const useTodos = () => {
-  const [todos, setTodos] = useState([]);
+export const useTodos = ({ todos, setIsLoading, setTodos }) => {
 
   const getDataList = async () => {
-    const todoList = await fetchToDoList();
-    setTodos(todoList.data);
+    setIsLoading(true);
+    try {
+      const todoList = await fetchToDoList();
+      setTodos(todoList.data);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const addToDo = async ({ todo_name }) => {
-    if (!todo_name) {
-      alert("Enter sth before submiting");
+  const addToDo = async (todo) => {
+    if (!todo) {
+      alert("Enter sth before submitting");
       return;
     }
-    const newToDo = await fetchAddToDo({ todo_name });
-    setTodos(prev => [newToDo.data, ...prev]);
-    return newToDo;
+    setIsLoading(true);
+    try {
+      const newToDo = await fetchAddToDo(todo);
+      setTodos(prev => [newToDo.data, ...prev]);
+      return newToDo;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const deleteToDo = async ({ id }) => {
@@ -26,20 +35,19 @@ export const useTodos = () => {
       return res.data;
     } catch (error) {
       console.error(error);
-      throw new Error("Error when updating");
-    } finally {
-
+      throw new Error("Error when deleting");
     }
   };
 
   const updateToDo = async ({ id }) => {
     const updatedToDo = todos.find(todo => todo.id === id);
-    if (!updatedToDo) {
-      return null;
-    }
+    if (!updatedToDo) return null;
+
     const statusUpdated = !updatedToDo.isDone;
     const newUpdatedToDo = await fetchUpdateOneToDo(id, statusUpdated);
-    setTodos(prev => prev.map(todo => todo.id === id ? { ...todo, isDone: statusUpdated } : todo));
+    setTodos(prev =>
+      prev.map(todo => todo.id === id ? { ...todo, isDone: statusUpdated } : todo)
+    );
     return newUpdatedToDo.data;
   };
 
@@ -48,7 +56,6 @@ export const useTodos = () => {
   }, []);
 
   return {
-    todos,
     addToDo,
     deleteToDo,
     updateToDo

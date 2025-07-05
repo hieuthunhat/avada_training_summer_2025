@@ -2,23 +2,38 @@ import { Button, Form, FormLayout, TextField } from "@shopify/polaris"
 import { useState } from "react"
 
 const ToDoForm = ({ action }) => {
-    const [todo_name, setTodoName] = useState('');
-    const handleSubmit = (e) => {   
+    const [todo, setTodo] = useState({
+        todo_name: '',
+        description: '',
+        sub_tasks: [],
+        isDone: false,
+        isHidden: false,
+    });
+    const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(todo_name);
-             
-        action( {todo_name});
-        setTodoName('');
+        action(todo);
+        setTodo({
+            todo_name: '',
+            description: '',
+            sub_tasks: '',
+            isDone: false,
+            isHidden: false,
+        });
     };
 
     return (
         <Form onSubmit={handleSubmit}>
             <FormLayout>
                 <TextField
-                    value={todo_name}
+                    value={todo.todo_name}
                     label="Name"
-                    onChange={name => setTodoName(name)}
+                    onChange={(todo_name) => setTodo({ ...todo, todo_name })}
                 />
+                <TextField
+                    label="Description"
+                    value={todo.description}
+                    onChange={(description) => setTodo({ ...todo, description })}
+                ></TextField>
                 <Button submit>Submit</Button>
             </FormLayout>
         </Form>
