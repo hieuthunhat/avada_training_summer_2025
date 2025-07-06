@@ -8,8 +8,8 @@ const addToDo = async (ctx) => {
             ...data,
             createdAt: new Date(),
         }
-        
-        const toDo = await addOne({data: fullTodo});
+
+        const toDo = await addOne({ data: fullTodo });
         if (!toDo) {
             ctx.status = 404;
             ctx.body = { success: false, message: "Fail to create a TODO" };
@@ -49,7 +49,7 @@ const getManyTodos = async (ctx) => {
 const getOneToDo = async (ctx) => {
     try {
         const { id } = ctx.params;
-        const currentProduct = await getOne({id});
+        const currentProduct = await getOne({ id });
         if (!currentProduct) {
             const err = new Error("Todo not found");
             err.status = 404;
@@ -70,10 +70,10 @@ const getOneToDo = async (ctx) => {
 const updateToDo = async (ctx) => {
     try {
         const { id } = ctx.params;
-        
+
         const data = ctx.request.body;
         // do updateone ko tra ve
-        const updatedProduct = await updateOne({id, data});
+        const updatedProduct = await updateOne({ id, data });
         if (!updatedProduct) {
             ctx.status = 404;
             ctx.body = { success: false, message: 'Product not found' };
@@ -86,10 +86,10 @@ const updateToDo = async (ctx) => {
     }
 }
 
-const deleteToDo= async (ctx) => {
+const deleteToDo = async (ctx) => {
     try {
         const { id } = ctx.params;
-        const product = await deleteOne({id: id});
+        const product = await deleteOne({ id: id });
         if (!product) {
             ctx.status = 404;
             ctx.body = { success: false, message: 'Product not found' };
@@ -104,11 +104,13 @@ const deleteToDo= async (ctx) => {
 
 const completeManyTodo = async (ctx) => {
     try {
-        const { selectedIds } = ctx.request.body;
+        const { todos } = ctx.request.body;
+
         const updatedTodos = [];
 
-        for (const id of selectedIds) {
-            const updated = await updateOne(id);
+        for (const todo of todos) {
+            const updated = await updateOne({ id: todo.id, data: { isDone: todo.isDone } }
+            );
             updatedTodos.push(updated);
         }
 
@@ -119,11 +121,38 @@ const completeManyTodo = async (ctx) => {
     }
 }
 
+const deleteManyTodo = async (ctx) => {
+    console.log("HEADERS:", ctx.request.headers);
+console.log("BODY:", ctx.request.body);
+
+  try {
+    const { todos } = ctx.request.body;
+    console.log("todos:", todos);
+
+    await Promise.all(
+      todos.map(id => deleteOne({ id }))
+    );
+
+    ctx.body = {
+      success: true,
+      data: todos
+    };
+  } catch (error) {
+    ctx.status = 500;
+    ctx.body = {
+      success: false,
+      error: error.message
+    };
+  }
+}
+
 
 export default {
     getManyTodos,
     getOneToDo,
     updateToDo,
     deleteToDo,
-    addToDo
+    addToDo,
+    completeManyTodo,
+    deleteManyTodo
 };

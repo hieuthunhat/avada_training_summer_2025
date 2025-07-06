@@ -1,19 +1,18 @@
-import { useCallback, useState } from "react";
-import { Box, Card, Button, Modal, Text, InlineStack, } from '@shopify/polaris';
+import { useState } from "react";
+import { Card, } from '@shopify/polaris';
 import { useTodos } from "../../hooks/useTodos";
 import TodoList from "../TodoList/TodoList";
-import ToDoForm from "../TodoForm/TodoForm";
 import TodoNavbar from "../TodoNavbar/TodoNavbar";
 
 
 export const TodoContainer = () => {
     const [todos, setTodos] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const { addToDo, updateToDo, deleteToDo } = useTodos({
+    const { addToDo, updateToDo, deleteToDo, completeManyTodo, deleteManyTodo } = useTodos({
         todos,
         setTodos,
         isLoading,
-        setIsLoading
+        setIsLoading,
     });
     const handleAddTodo = async (todoData) => {
         await addToDo(todoData);
@@ -29,6 +28,8 @@ export const TodoContainer = () => {
                 updateToDo={updateToDo}
                 deleteToDo={deleteToDo}
                 setIsLoading={setIsLoading}
+                completeManyTodo={completeManyTodo}
+                deleteManyTodo={deleteManyTodo}
             />
         </Card>
     )

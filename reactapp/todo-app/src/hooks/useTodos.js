@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { fetchAddToDo, fetchDeleteOneToDo, fetchToDoList, fetchUpdateOneToDo } from "../services/fetchAPI";
+import { fetchAddToDo, fetchDeleteManyTodo, fetchDeleteOneToDo, fetchToDoList, fetchUpdateOneToDo } from "../services/useFetchAPI";
 
 export const useTodos = ({ todos, setIsLoading, setTodos }) => {
 
@@ -51,6 +51,34 @@ export const useTodos = ({ todos, setIsLoading, setTodos }) => {
     return newUpdatedToDo.data;
   };
 
+  const completeManyTodo = async ({ selectedIds }) => {
+    const selectedIdsSet = new Set(selectedIds);
+
+    const updatedTodos = todos
+      .filter(todo => selectedIdsSet.has(todo.id))
+      .map(todo => ({ ...todo, isDone: !todo.isDone }));
+
+    await completeManyTodo({ todos: updatedTodos });
+
+    setTodos(prev =>
+      prev.map(todo =>
+        selectedIdsSet.has(todo.id)
+          ? { ...todo, isDone: !todo.isDone }
+          : todo
+      )
+    );
+  };
+
+  const deleteManyTodo = async ({ selectedIds }) => {
+    console.log(selectedIds);
+    
+    const selectedIdsSet = new Set(selectedIds);
+
+    await fetchDeleteManyTodo({ todos: selectedIds });
+
+    setTodos(prev => prev.filter(todo => !selectedIdsSet.has(todo.id)));
+  }
+
   useEffect(() => {
     getDataList();
   }, []);
@@ -58,6 +86,8 @@ export const useTodos = ({ todos, setIsLoading, setTodos }) => {
   return {
     addToDo,
     deleteToDo,
-    updateToDo
+    updateToDo,
+    completeManyTodo,
+    deleteManyTodo
   };
 };

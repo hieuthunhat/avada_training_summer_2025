@@ -1,7 +1,5 @@
 import { Box, InlineStack, Text } from '@shopify/polaris'
-import React from 'react'
 import ToDoForm from '../TodoForm/TodoForm'
-import { useTodos } from '../../hooks/useTodos';
 
 const TodoNavbar = ({ action }) => {
     return (

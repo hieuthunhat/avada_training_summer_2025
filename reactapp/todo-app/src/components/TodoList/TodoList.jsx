@@ -2,7 +2,7 @@ import { ResourceItem, ResourceList, Text } from "@shopify/polaris";
 import ToDo from "../Todo/Todo";
 import { useState } from "react";
 
-const TodoList = ({ todos, isLoading, updateToDo, deleteToDo, setIsLoading }) => {
+const TodoList = ({ todos, isLoading, updateToDo, deleteToDo, setIsLoading, completeManyTodo, deleteManyTodo }) => {
     const [selectedItems, setSelectedItems] = useState([]);
 
     const clearSelection = () => {
@@ -12,9 +12,7 @@ const TodoList = ({ todos, isLoading, updateToDo, deleteToDo, setIsLoading }) =>
     const handleBulkComplete = async () => {
         setIsLoading(true);
         try {
-            for (const id of selectedItems) {
-                await updateToDo({ id });
-            }
+            await completeManyTodo(selectedItems)
             clearSelection();
         } catch (error) {
             console.error('Error in bulk complete:', error);
@@ -26,9 +24,7 @@ const TodoList = ({ todos, isLoading, updateToDo, deleteToDo, setIsLoading }) =>
     const handleBulkDelete = async () => {
         setIsLoading(true);
         try {
-            for (const id of selectedItems) {
-                await deleteToDo({ id });
-            }
+            await deleteManyTodo( {selectedIds: selectedItems });
             clearSelection();
         } catch (error) {
             console.error('Error in bulk delete:', error);

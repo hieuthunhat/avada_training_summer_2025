@@ -9,8 +9,8 @@ const db = getFirestore(app);
  * - u_id (future)
  * - todo_name
  * - description
- * - isDone             BE
- * - isHidden (privacy) BE
+ * - isDone             
+ * - isHidden (privacy) 
  * - createdAt          BE
  * - updatedAt          BE
  * - sub_tasks          
@@ -64,13 +64,12 @@ export const getOne = async ({ id }) => {
 }
 
 export const updateOne = async ({ id, data }) => {
-
     try {
+        console.log("updateOne called with:", { id, data });
         const docRef = doc(db, 'todos', id);
         await updateDoc(docRef, { ...data, updatedAt: new Date() });
         const updatedDoc = await getDoc(docRef);
         return { id: updatedDoc.id, ...updatedDoc.data() };
-
     } catch (error) {
         console.error("Error fetching todo:", error);
         throw error;

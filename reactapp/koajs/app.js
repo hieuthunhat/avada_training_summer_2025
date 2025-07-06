@@ -11,7 +11,12 @@ app.use(cors({
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowHeaders: ['Content-Type', 'Authorization']
 }));
-app.use(koaBody());
+app.use(koaBody({
+  json: true,
+  urlencoded: true,
+  multipart: true
+}));
+
 app.use(router.routes());
 app.use(router.allowedMethods());
 

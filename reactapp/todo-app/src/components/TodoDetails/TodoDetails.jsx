@@ -1,6 +1,6 @@
 import { Box, Button, Frame, Page } from "@shopify/polaris";
 import { useNavigate, useParams } from "react-router-dom"
-import { fetchGetOneToDo } from "../../services/fetchAPI";
+import { fetchGetOneToDo } from "../../services/useFetchAPI";
 import { useEffect, useState } from "react";
 
 const TodoDetails = () => {

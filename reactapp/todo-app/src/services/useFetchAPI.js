@@ -1,4 +1,4 @@
-import { FINAL_API } from "../const/constants.js";
+import { BASE_URL, FINAL_API } from "../const/constants.js";
 import axios from "axios";
 
 const fetchToDoList = async () => {
@@ -11,7 +11,7 @@ const fetchToDoList = async () => {
   }
 }
 
-const fetchAddToDo = async (data) => { 
+const fetchAddToDo = async (data) => {
   try {
     const response = await axios.post(`${FINAL_API}`, data);
     return response.data;
@@ -51,10 +51,37 @@ const fetchDeleteOneToDo = async (id) => {
   }
 }
 
+const fetchCompleteManyTodo = async ({ todos }) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/complete_many`, todos);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw new Error(`Error fetching data: ${error.message}`);
+  }
+}
+
+const fetchDeleteManyTodo = async ({ todos }) => {
+  console.log("todos:", todos);
+
+  try {
+    const response = await axios.post(`${BASE_URL}/delete_many`, { todos });
+    console.log("response:", response);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw new Error(`Error fetching data: ${error.message}`);
+  }
+}
+
+
+
 export {
   fetchToDoList,
   fetchAddToDo,
   fetchGetOneToDo,
   fetchUpdateOneToDo,
-  fetchDeleteOneToDo
+  fetchDeleteOneToDo,
+  fetchCompleteManyTodo,
+  fetchDeleteManyTodo
 }
