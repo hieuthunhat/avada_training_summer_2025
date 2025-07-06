@@ -122,17 +122,11 @@ const completeManyTodo = async (ctx) => {
 }
 
 const deleteManyTodo = async (ctx) => {
-    console.log("HEADERS:", ctx.request.headers);
-console.log("BODY:", ctx.request.body);
-
   try {
     const { todos } = ctx.request.body;
-    console.log("todos:", todos);
-
     await Promise.all(
       todos.map(id => deleteOne({ id }))
     );
-
     ctx.body = {
       success: true,
       data: todos
@@ -145,7 +139,6 @@ console.log("BODY:", ctx.request.body);
     };
   }
 }
-
 
 export default {
     getManyTodos,

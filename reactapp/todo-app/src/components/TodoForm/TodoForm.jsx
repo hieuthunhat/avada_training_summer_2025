@@ -5,8 +5,6 @@ const ToDoForm = ({ action }) => {
     const [active, setActive] = useState(false);
     const handleChange = useCallback(() => setActive(!active), [active]);
 
-    const activator = <Button variant="primary" onClick={handleChange}>Create</Button>;
-
     const [todo, setTodo] = useState({
         todo_name: '',
         description: '',
@@ -14,23 +12,34 @@ const ToDoForm = ({ action }) => {
         isDone: false,
         isHidden: false,
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleOpen = () => {
+        setTodo({
+            todo_name: '',
+            description: '',
+            sub_tasks: [],
+            isDone: false,
+            isHidden: false,
+        });
+        setActive(true);
+    };
 
     const submitTodo = async () => {
+        if (!todo.todo_name.trim()) return;
+        setIsSubmitting(true);
         try {
             await action(todo);
         } catch (err) {
             console.error(err);
         } finally {
-            setTodo({
-                todo_name: '',
-                description: '',
-                sub_tasks: '',
-                isDone: false,
-                isHidden: false,
-            });
+            setIsSubmitting(false);
             setActive(false);
         }
     };
+
+    const activator = <Button variant="primary" onClick={handleOpen}>Create</Button>;
+
 
     return (
         <Modal
