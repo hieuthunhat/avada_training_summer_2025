@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { fetchAddToDo, fetchDeleteManyTodo, fetchDeleteOneToDo, fetchToDoList, fetchUpdateOneToDo } from "../services/useFetchAPI";
+import { fetchAddToDo, fetchCompleteManyTodo, fetchDeleteManyTodo, fetchDeleteOneToDo, fetchToDoList, fetchUpdateOneToDo } from "../services/useFetchAPI";
 
 export const useTodos = ({ todos, setIsLoading, setTodos }) => {
 
@@ -53,12 +53,16 @@ export const useTodos = ({ todos, setIsLoading, setTodos }) => {
 
   const completeManyTodo = async ({ selectedIds }) => {
     const selectedIdsSet = new Set(selectedIds);
+    console.log(selectedIds);
+    
 
     const updatedTodos = todos
       .filter(todo => selectedIdsSet.has(todo.id))
       .map(todo => ({ ...todo, isDone: !todo.isDone }));
+      console.log(updatedTodos);
+      
 
-    await completeManyTodo({ todos: updatedTodos });
+    await fetchCompleteManyTodo({ todos: updatedTodos });
 
     setTodos(prev =>
       prev.map(todo =>

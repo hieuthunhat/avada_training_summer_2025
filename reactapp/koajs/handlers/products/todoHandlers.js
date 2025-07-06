@@ -105,6 +105,8 @@ const deleteToDo = async (ctx) => {
 const completeManyTodo = async (ctx) => {
     try {
         const { todos } = ctx.request.body;
+        console.log(todos);
+        
 
         const updatedTodos = [];
 

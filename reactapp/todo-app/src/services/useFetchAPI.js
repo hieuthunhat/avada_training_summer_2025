@@ -53,7 +53,7 @@ const fetchDeleteOneToDo = async (id) => {
 
 const fetchCompleteManyTodo = async ({ todos }) => {
   try {
-    const response = await axios.put(`${BASE_URL}/complete_many`, todos);
+    const response = await axios.post(`${BASE_URL}/complete_many`, { todos });
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -62,8 +62,6 @@ const fetchCompleteManyTodo = async ({ todos }) => {
 }
 
 const fetchDeleteManyTodo = async ({ todos }) => {
-  console.log("todos:", todos);
-
   try {
     const response = await axios.post(`${BASE_URL}/delete_many`, { todos });
     console.log("response:", response);

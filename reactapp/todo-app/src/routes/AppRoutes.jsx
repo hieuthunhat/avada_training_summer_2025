@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import TodoDetails from '../components/TodoDetails/TodoDetails';
 import TodoPage from '../pages/TodoPage';
+import TodoDetailsPage from '../pages/TodoDetailsPage';
 
 const AppRoutes = () => {
   return (
     <Router>
       <Routes>
         <Route path='/' element={<TodoPage/>}></Route>
-        <Route path='/todos/:id' element={<TodoDetails/>}></Route>
+        <Route path='/todos/:id' element={<TodoDetailsPage/>}></Route>
       </Routes>
     </Router>
   )

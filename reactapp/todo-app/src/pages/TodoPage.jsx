@@ -1,10 +1,11 @@
 import { Page } from '@shopify/polaris'
-import { TodoContainer } from '../components/TodoContainer/TodoContainer'
+import TodoListLayout from '../layout/TodoListLayout'
+
 
 const TodoPage = () => {
   return (
     <Page>
-        <TodoContainer></TodoContainer>
+        <TodoListLayout></TodoListLayout>
     </Page>
   )
 }

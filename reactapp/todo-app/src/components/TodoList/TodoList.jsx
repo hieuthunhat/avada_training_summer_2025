@@ -12,7 +12,7 @@ const TodoList = ({ todos, isLoading, updateToDo, deleteToDo, setIsLoading, comp
     const handleBulkComplete = async () => {
         setIsLoading(true);
         try {
-            await completeManyTodo(selectedItems)
+            await completeManyTodo({selectedIds: selectedItems})
             clearSelection();
         } catch (error) {
             console.error('Error in bulk complete:', error);
@@ -44,7 +44,6 @@ const TodoList = ({ todos, isLoading, updateToDo, deleteToDo, setIsLoading, comp
             renderItem={(item) =>
                 <ResourceItem
                     id={item.id}
-                    // url={`/todos/${item.id}`}
                 >
                     <ToDo
                         data={item}

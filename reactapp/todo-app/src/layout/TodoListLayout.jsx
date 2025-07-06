@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Card, } from '@shopify/polaris';
-import { useTodos } from "../../hooks/useTodos";
-import TodoList from "../TodoList/TodoList";
-import TodoNavbar from "../TodoNavbar/TodoNavbar";
+import { useTodos } from "../hooks/useTodos";
+import TodoList from "../components/TodoList/TodoList";
+import TodoNavbar from "../components/TodoNavbar/TodoNavbar";
 
-
-export const TodoContainer = () => {
+const TodoListLayout = () => {
     const [todos, setTodos] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const { addToDo, updateToDo, deleteToDo, completeManyTodo, deleteManyTodo } = useTodos({
@@ -34,3 +33,5 @@ export const TodoContainer = () => {
         </Card>
     )
 }
+
+export default TodoListLayout;

@@ -11,7 +11,7 @@ router.get('/todos/:id', todoHandlers.getOneToDo);
 router.post('/todos', inputMiddleware, todoHandlers.addToDo);
 router.put('/todos/:id', todoHandlers.updateToDo);
 router.delete('/todos/:id', todoHandlers.deleteToDo);
-router.put('/complete_many', todoHandlers.completeManyTodo);
+router.post('/complete_many', todoHandlers.completeManyTodo);
 router.post('/delete_many', todoHandlers.deleteManyTodo);
 
 export { router };
