@@ -102,6 +102,24 @@ const deleteToDo= async (ctx) => {
     }
 }
 
+const completeManyTodo = async (ctx) => {
+    try {
+        const { selectedIds } = ctx.request.body;
+        const updatedTodos = [];
+
+        for (const id of selectedIds) {
+            const updated = await updateOne(id);
+            updatedTodos.push(updated);
+        }
+
+        ctx.body = { success: true, data: updatedTodos };
+    } catch (error) {
+        ctx.status = 500;
+        ctx.body = { success: false, error: error.message };
+    }
+}
+
+
 export default {
     getManyTodos,
     getOneToDo,

@@ -1,7 +1,7 @@
 import { Page } from '@shopify/polaris'
 import { TodoContainer } from '../components/TodoContainer/TodoContainer'
 
-const Homepage = () => {
+const TodoPage = () => {
   return (
     <Page>
         <TodoContainer></TodoContainer>
@@ -9,4 +9,4 @@ const Homepage = () => {
   )
 }
 
-export default Homepage
+export default TodoPage

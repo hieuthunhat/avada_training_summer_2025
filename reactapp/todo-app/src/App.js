@@ -1,12 +1,19 @@
 import '@shopify/polaris/build/esm/styles.css';
-import { Frame } from '@shopify/polaris';
+import { AppProvider} from '@shopify/polaris';
+import en from '@shopify/polaris/locales/en.json';
 import AppRoutes from './routes/AppRoutes';
+import AppLayout from './layout/AppLayout';
+import '@shopify/polaris/build/esm/styles.css';
+
 
 const App = () => {
   return (
-    <Frame>
-      <AppRoutes></AppRoutes>
-    </Frame>
+    <AppProvider i18n={en}>
+      <AppLayout>
+        <AppRoutes/>
+      </AppLayout>
+    </AppProvider>
+
   )
 }
 

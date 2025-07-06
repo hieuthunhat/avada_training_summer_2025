@@ -2,9 +2,11 @@ import { Button, Form, FormLayout, Modal, TextField } from "@shopify/polaris"
 import { useCallback, useState } from "react"
 
 const ToDoForm = ({ action }) => {
-    const [active, setActive] = useState(true);
+    const [active, setActive] = useState(false);
     const handleChange = useCallback(() => setActive(!active), [active]);
-    const activator = <Button onClick={handleChange}>Open</Button>;
+
+    const activator = <Button variant="primary" onClick={handleChange}>Create</Button>;
+
     const [todo, setTodo] = useState({
         todo_name: '',
         description: '',
@@ -12,27 +14,33 @@ const ToDoForm = ({ action }) => {
         isDone: false,
         isHidden: false,
     });
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        action(todo);
-        setTodo({
-            todo_name: '',
-            description: '',
-            sub_tasks: '',
-            isDone: false,
-            isHidden: false,
-        });
+
+    const submitTodo = async () => {
+        try {
+            await action(todo);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setTodo({
+                todo_name: '',
+                description: '',
+                sub_tasks: '',
+                isDone: false,
+                isHidden: false,
+            });
+            setActive(false);
+        }
     };
 
     return (
         <Modal
             activator={activator}
-            open={!active}
+            open={active}
             onClose={handleChange}
             title="Create todo"
             primaryAction={{
                 content: 'Add',
-                onAction: handleSubmit,
+                onAction: submitTodo,
             }}
             secondaryActions={[
                 {
@@ -42,23 +50,21 @@ const ToDoForm = ({ action }) => {
             ]}
         >
             <Modal.Section>
-                <Form onSubmit={handleSubmit}>
-                    <FormLayout>
-                        <TextField
-                            value={todo.todo_name}
-                            label="Name"
-                            onChange={(todo_name) => setTodo({ ...todo, todo_name })}
-                        />
-                        <TextField
-                            label="Description"
-                            value={todo.description}
-                            onChange={(description) => setTodo({ ...todo, description })}
-                        ></TextField>
-                    </FormLayout>
-                </Form>
+                <FormLayout>
+                    <TextField
+                        value={todo.todo_name}
+                        label="Name"
+                        onChange={(todo_name) => setTodo({ ...todo, todo_name })}
+                    />
+                    <TextField
+                        label="Description"
+                        value={todo.description}
+                        onChange={(description) => setTodo({ ...todo, description })}
+                    />
+                </FormLayout>
             </Modal.Section>
         </Modal>
-    )
-}
+    );
+};
 
 export default ToDoForm;
