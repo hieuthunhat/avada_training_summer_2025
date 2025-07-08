@@ -5,7 +5,7 @@ import TodoListLayout from '../layout/TodoListLayout'
 const TodoPage = () => {
   return (
     <Page>
-        <TodoListLayout></TodoListLayout>
+        <TodoListLayout/>
     </Page>
   )
 }

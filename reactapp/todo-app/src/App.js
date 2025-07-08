@@ -5,7 +5,6 @@ import AppRoutes from './routes/AppRoutes';
 import AppLayout from './layout/AppLayout';
 import '@shopify/polaris/build/esm/styles.css';
 
-
 const App = () => {
   return (
     <AppProvider i18n={en}>

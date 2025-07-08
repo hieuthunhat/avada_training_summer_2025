@@ -1,26 +1,28 @@
-import { Button, Form, FormLayout, Modal, TextField } from "@shopify/polaris"
+import { Button, FormLayout, Modal, TextField } from "@shopify/polaris"
 import { useCallback, useState } from "react"
+
+/**
+ * Notes:
+ * Thiếu validation ở FE
+ *  
+ */
 
 const ToDoForm = ({ action }) => {
     const [active, setActive] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const handleChange = useCallback(() => setActive(!active), [active]);
 
     const [todo, setTodo] = useState({
         todo_name: '',
         description: '',
-        sub_tasks: [],
         isDone: false,
-        isHidden: false,
     });
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleOpen = () => {
         setTodo({
             todo_name: '',
             description: '',
-            sub_tasks: [],
             isDone: false,
-            isHidden: false,
         });
         setActive(true);
     };
@@ -62,7 +64,7 @@ const ToDoForm = ({ action }) => {
                 <FormLayout>
                     <TextField
                         value={todo.todo_name}
-                        label="Name"
+                        label="Title"
                         onChange={(todo_name) => setTodo({ ...todo, todo_name })}
                     />
                     <TextField

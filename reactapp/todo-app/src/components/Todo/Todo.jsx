@@ -1,12 +1,9 @@
-import { ResourceItem, InlineStack, Box, Button, Badge } from "@shopify/polaris";
+import { InlineStack, Box, Button, Badge } from "@shopify/polaris";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const ToDo = ({ data, onToggleDone, onToggleDelete }) => {
     const [isloadingCompleted, setIsLoadingCompleted] = useState(false);
     const [isloadingDeleted, setIsLoadingDeleted] = useState(false);
-    const [isloadingDetails, setIsLoadingDetails] = useState(false);
-    const navigate = useNavigate();
 
     const handleFinished = async () => {
         setIsLoadingCompleted(true)
@@ -30,17 +27,6 @@ const ToDo = ({ data, onToggleDone, onToggleDelete }) => {
         }
     };
 
-    const handleClickDetails = () => {
-        setIsLoadingDetails(true)
-        try {
-            navigate(`/todos/${data.id}`)
-        } catch (error) {
-
-        } finally {
-            setIsLoadingDetails(false);
-        }
-    }
-
     return (
 
         <InlineStack
@@ -53,7 +39,6 @@ const ToDo = ({ data, onToggleDone, onToggleDelete }) => {
                 <Badge tone={data.isDone ? "success" : "attention"}>{!data.isDone ? 'Incomplete' : 'Complete'}</Badge>
                 <Button loading={isloadingCompleted} onClick={handleFinished}>Complete</Button>
                 <Button loading={isloadingDeleted} onClick={handleDeleted} tone="critical">Delete</Button>
-                <Button loading={isloadingDetails} onClick={handleClickDetails}>View Details</Button>
             </InlineStack>
         </InlineStack>
     );

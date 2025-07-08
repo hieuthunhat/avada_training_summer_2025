@@ -12,13 +12,6 @@ export const inputMiddleware = async (ctx, next) => {
         const schema = yup.object().shape({
             todo_name: yup.string().required('Name is required'),
             description: yup.string().optional(),
-            sub_tasks: yup.array().of(
-                yup.object({
-                    task: yup.string(),
-                })
-            ).optional(),
-            color: yup.string().optional(),
-            image: yup.string().url('Image must be a valid URL').optional()
         });
 
         await schema.validate(productData);
